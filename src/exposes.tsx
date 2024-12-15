@@ -1,6 +1,11 @@
+import { StrictMode } from "react";
+import { createRoot, Root as _Root } from "react-dom/client";
+import App from "./App.tsx";
+
 import { routePath as autoReportRoutePath } from "#domains/autoReport/routes/path";
 import { routePath as settingRoutePath } from "#domains/setting/routes/path";
 import { routePath as systemRoutePath } from "#domains/system/routes/path";
+import { BrowserRouter } from "react-router";
 
 export { basePath } from "#routes/path";
 
@@ -54,3 +59,25 @@ export const menus = [
     ],
   },
 ];
+
+export class Root {
+  root: _Root;
+
+  constructor(id: string) {
+    this.root = createRoot(document.getElementById(id)!);
+  }
+
+  render() {
+    this.root.render(
+      <StrictMode>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </StrictMode>
+    );
+  }
+
+  unmount() {
+    this.root.unmount();
+  }
+}
